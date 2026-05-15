@@ -25,6 +25,8 @@
 
 **JAVARA** is the championship toolkit for Java engineers. CLI-first productivity tools, scaffolding, and enterprise utilities that turn the Java ecosystem into a high-speed delivery platform.
 
+> The full product direction and brand philosophy is available in [docs/PRD.md](docs/PRD.md).
+
 ## Philosophy
 
 JAVARA is not a toy framework. It is a **developer arsenal** for backend engineers who are serious about speed, reliability, automation, and delivery quality.
