@@ -10,7 +10,7 @@ import net.devh.boot.grpc.server.advice.GrpcAdvice;
 import net.devh.boot.grpc.server.advice.GrpcExceptionHandler;
 
 @GrpcAdvice
-public class GrpcExceptionHandler {
+public class T24GrpcExceptionHandler {
 
     @GrpcExceptionHandler(T24BusinessException.class)
     public Status handleBusiness(T24BusinessException ex, StreamObserver<?> observer) {

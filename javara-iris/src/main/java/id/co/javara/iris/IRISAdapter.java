@@ -85,7 +85,8 @@ public class IRISAdapter implements TransactionPort {
             if (event.isSuccess() && event.getResult() != null) {
                 return event.getResult();
             }
-            throw new T24ResponseException(event.getErrorMessage() != null
+            throw new T24ResponseException("IRIS_ERROR",
+                    event.getErrorMessage() != null
                     ? event.getErrorMessage() : "IRIS response indicates failure");
         } catch (java.util.concurrent.TimeoutException e) {
             throw new T24TimeoutException("IRIS response timed out for correlationId: " + correlationId, e);

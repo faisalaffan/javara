@@ -124,7 +124,7 @@ public class JMSAdapter implements TransactionPort, CustomerPort {
                 return c;
             }
             throw new T24ConnectionException(
-                "Unexpected response type for customer inquiry: " + result.getClass().getName());
+                "Unexpected response type for customer inquiry: " + result.getClass().getName(), null);
         } catch (JMSException e) {
             throw new T24ConnectionException(
                 "JMS customer inquiry failed: " + e.getMessage(), e);
@@ -153,7 +153,7 @@ public class JMSAdapter implements TransactionPort, CustomerPort {
                 return c;
             }
             throw new T24ConnectionException(
-                "Unexpected response type for customer creation: " + result.getClass().getName());
+                "Unexpected response type for customer creation: " + result.getClass().getName(), null);
         } catch (JMSException e) {
             throw new T24ConnectionException(
                 "JMS customer creation failed: " + e.getMessage(), e);

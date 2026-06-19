@@ -15,6 +15,9 @@ import org.springframework.jms.connection.CachingConnectionFactory;
  * <p>
  * Supports ActiveMQ (default) and IBM MQ brokers. The returned factory is
  * wrapped in a {@link CachingConnectionFactory} for session pooling.
+ * <p>
+ * IBM MQ support requires {@code com.ibm.mq:com.ibm.mq.allclient} on the classpath.
+ * Without it, IBM MQ configuration will throw a clear error at runtime.
  */
 public class JMSConnectionFactoryProvider {
 
@@ -76,14 +79,11 @@ public class JMSConnectionFactoryProvider {
             }
 
             if (config.sslEnabled() && config.sslCipherSuite() != null && !config.sslCipherSuite().isBlank()) {
-                // Configure SSL context if cipher suite is specified
                 SSLContext sslContext = SSLContext.getInstance("TLS");
                 sslContext.init(null, null, null);
-                // ActiveMQSslConnectionFactory picks up JVM default SSL context
                 log.info("SSL enabled for ActiveMQ connection to {}", config.brokerUrl());
             }
 
-            // Disable serialization for security — only TextMessage-based communication
             factory.setTrustAllPackages(false);
             factory.setObjectMessageSerializationDefered(false);
 
@@ -96,13 +96,16 @@ public class JMSConnectionFactoryProvider {
     }
 
     // -----------------------------------------------------------------------
-    // IBM MQ
+    // IBM MQ (via reflection — com.ibm.mq jars must be on classpath at runtime)
     // -----------------------------------------------------------------------
 
     private ConnectionFactory createIbmMqFactory() {
         try {
-            com.ibm.mq.jakarta.jms.MQConnectionFactory factory =
-                new com.ibm.mq.jakarta.jms.MQConnectionFactory();
+            // Use reflection to avoid compile-time dependency on IBM MQ jars
+            Class<?> mqFactoryClass = Class.forName("com.ibm.mq.jakarta.jms.MQConnectionFactory");
+            Class<?> jmscClass = Class.forName("com.ibm.mq.jakarta.jms.JMSC");
+
+            Object factory = mqFactoryClass.getDeclaredConstructor().newInstance();
 
             // Parse brokerUrl to extract host and port
             String url = config.brokerUrl();
@@ -124,29 +127,37 @@ public class JMSConnectionFactoryProvider {
                 }
             }
 
-            factory.setHostName(host);
-            factory.setPort(port);
-            factory.setQueueManager(config.queueManager());
-            factory.setChannel(config.channel());
+            mqFactoryClass.getMethod("setHostName", String.class).invoke(factory, host);
+            mqFactoryClass.getMethod("setPort", int.class).invoke(factory, port);
+            mqFactoryClass.getMethod("setQueueManager", String.class).invoke(factory, config.queueManager());
+            mqFactoryClass.getMethod("setChannel", String.class).invoke(factory, config.channel());
 
             if (config.sslEnabled()) {
-                factory.setSSLCipherSuite(config.sslCipherSuite());
+                mqFactoryClass.getMethod("setSSLCipherSuite", String.class)
+                    .invoke(factory, config.sslCipherSuite());
             }
 
             // Authentication
             if (config.username() != null && !config.username().isBlank()) {
-                factory.setStringProperty(com.ibm.mq.jakarta.jms.MQConnectionFactory.USERID, config.username());
-                factory.setStringProperty(com.ibm.mq.jakarta.jms.MQConnectionFactory.PASSWORD,
-                    config.password() != null ? config.password() : "");
+                String userIdProp = (String) mqFactoryClass.getField("USERID").get(null);
+                String passwordProp = (String) mqFactoryClass.getField("PASSWORD").get(null);
+                mqFactoryClass.getMethod("setStringProperty", String.class, String.class)
+                    .invoke(factory, userIdProp, config.username());
+                mqFactoryClass.getMethod("setStringProperty", String.class, String.class)
+                    .invoke(factory, passwordProp, config.password() != null ? config.password() : "");
             }
 
-            factory.setTransportType(com.ibm.mq.jakarta.jms.JMSC.MQJMS_TP_CLIENT_MQ_TCP);
+            int transportType = jmscClass.getField("MQJMS_TP_CLIENT_MQ_TCP").getInt(null);
+            mqFactoryClass.getMethod("setTransportType", int.class).invoke(factory, transportType);
 
-            log.info("Created IBM MQ connection factory for host={}:{} queueManager={} channel={}",
+            log.info("Created IBM MQ connection factory (via reflection) for host={}:{} queueManager={} channel={}",
                 host, port, config.queueManager(), config.channel());
 
-            return factory;
+            return (ConnectionFactory) factory;
 
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException(
+                "IBM MQ libraries not found on classpath. Add 'com.ibm.mq:com.ibm.mq.allclient' dependency.", e);
         } catch (Exception e) {
             throw new IllegalStateException("Failed to create IBM MQ connection factory", e);
         }
