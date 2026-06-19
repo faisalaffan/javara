@@ -45,6 +45,49 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Internal modules -->
+            <dependency>
+                <groupId>id.co.javara</groupId>
+                <artifactId>javara-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>id.co.javara</groupId>
+                <artifactId>javara-ofs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>id.co.javara</groupId>
+                <artifactId>javara-tafj</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>id.co.javara</groupId>
+                <artifactId>javara-iris</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>id.co.javara</groupId>
+                <artifactId>javara-jms</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>id.co.javara</groupId>
+                <artifactId>javara-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>id.co.javara</groupId>
+                <artifactId>javara-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>id.co.javara</groupId>
+                <artifactId>javara-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Spring Boot BOM -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
