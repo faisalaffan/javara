@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: javara
+  datasource:
+    url: jdbc:postgresql://localhost:5432/javara
+    username: ${DB_USERNAME:javara}
+    password: ${DB_PASSWORD:javara}
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    schemas: javara_t24
+    default-schema: javara_t24
+
+javara:
+  t24:
+    default-adapter: ofs
+    adapters: [ofs, tafj]
+    ofs:
+      endpoint: ${T24_OFS_ENDPOINT:http://localhost:9443}
+      username: ${T24_USERNAME:}
+      password: ${T24_PASSWORD:}
+      auth-type: basic
+    resilience:
+      retry:
+        max-attempts: 3
+        backoff: exponential
+        max-delay: 2s
+      circuit-breaker:
+        failure-rate-threshold: 50
+        wait-duration-in-open: 30s
+        sliding-window-size: 20
+      time-limiter:
+        ofs: 30s
+        tafj: 60s
+  security:
+    auth-mode: apikey
