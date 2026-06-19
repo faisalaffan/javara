@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>id.co.javara</groupId>
+    <artifactId>javara</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>JAVARA</name>
+    <description>The championship toolkit for Java engineers — Temenos Transact Integration</description>
+
+    <modules>
+        <module>javara-bom</module>
+        <module>javara-core</module>
+        <module>javara-ofs</module>
+        <module>javara-tafj</module>
+        <module>javara-iris</module>
+        <module>javara-jms</module>
+        <module>javara-app</module>
+        <module>javara-client</module>
+        <module>javara-starter</module>
+    </modules>
+
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <spring-boot.version>3.4.1</spring-boot.version>
+        <resilience4j.version>2.2.0</resilience4j.version>
+        <testcontainers.version>1.20.4</testcontainers.version>
+        <wiremock.version>3.9.1</wiremock.version>
+        <grpc.version>1.68.0</grpc.version>
+        <protobuf.version>3.25.5</protobuf.version>
+        <springdoc.version>2.7.0</springdoc.version>
+        <openfeign.version>4.2.0</openfeign.version>
+        <flyway.version>10.21.0</flyway.version>
+        <caffeine.version>3.1.8</caffeine.version>
+        <micrometer-tracing.version>1.4.1</micrometer-tracing.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.13.0</version>
+                    <configuration>
+                        <source>21</source>
+                        <target>21</target>
+                        <parameters>true</parameters>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.5.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.5.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.12</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
