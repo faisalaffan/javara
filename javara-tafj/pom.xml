@@ -3,12 +3,62 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>id.co.javara</groupId>
         <artifactId>javara</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>javara-tafj</artifactId>
-    <packaging>jar</packaging>
-    <name>JAVARA Tafj</name>
+
+    <name>JAVARA TAFJ Adapter</name>
+    <description>TAFJ REST/SOAP adapter — communicates with T24 Transact via TAFJ-exposed web services</description>
+
+    <properties>
+        <spring-ws.version>4.0.1</spring-ws.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>id.co.javara</groupId>
+            <artifactId>javara-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>id.co.javara</groupId>
+            <artifactId>javara-ofs</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+            <version>${spring-ws.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+            <version>${wiremock.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
