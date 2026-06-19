@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package id.co.javara;
+
+option java_package = "id.co.javara.app.grpc";
+option java_multiple_files = true;
+
+service CustomerService {
+  rpc GetCustomer(GetCustomerRequest) returns (Customer);
+  rpc SearchCustomers(SearchCustomersRequest) returns (SearchCustomersResponse);
+  rpc CreateCustomer(CreateCustomerRequest) returns (Customer);
+  rpc UpdateCustomer(UpdateCustomerRequest) returns (Customer);
+  rpc GetCustomerAccounts(GetCustomerAccountsRequest) returns (CustomerAccountsResponse);
+}
+
+message GetCustomerRequest {
+  string customer_id = 1;
+}
+
+message SearchCustomersRequest {
+  string search_term = 1;
+}
+
+message CreateCustomerRequest {
+  string customer_id = 1;
+  string cif_number = 2;
+  string full_name = 3;
+  string id_type = 4;
+  string id_number = 5;
+  string branch_code = 6;
+  string address = 7;
+  string phone = 8;
+  string email = 9;
+}
+
+message UpdateCustomerRequest {
+  string customer_id = 1;
+  string full_name = 2;
+  string address = 3;
+  string phone = 4;
+  string email = 5;
+}
+
+message Customer {
+  string customer_id = 1;
+  string cif_number = 2;
+  string full_name = 3;
+  string id_type = 4;
+  string id_number = 5;
+  string branch_code = 6;
+  string status = 7;
+  string address = 8;
+  string phone = 9;
+  string email = 10;
+}
+
+message SearchCustomersResponse {
+  repeated Customer customers = 1;
+  int32 total_count = 2;
+}
+
+message GetCustomerAccountsRequest {
+  string customer_id = 1;
+}
+
+message CustomerAccountsResponse {
+  string customer_id = 1;
+  repeated Account accounts = 2;
+}
+
+message Account {
+  string account_number = 1;
+  string customer_id = 2;
+  string currency = 3;
+  string account_type = 4;
+  string balance = 5;
+  string status = 6;
+  string opened_date = 7;
+}

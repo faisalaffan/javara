@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package id.co.javara;
+
+option java_package = "id.co.javara.app.grpc";
+option java_multiple_files = true;
+
+import "google/protobuf/timestamp.proto";
+
+service TransactionService {
+  rpc PostFundTransfer(FundTransferRequest) returns (TransactionResponse);
+  rpc PostTellerTransaction(TellerRequest) returns (TransactionResponse);
+  rpc PostMultiCommit(MultiCommitRequest) returns (TransactionResponse);
+  rpc GetTransactionStatus(StatusRequest) returns (StatusResponse);
+}
+
+message FundTransferRequest {
+  string idempotency_key = 1;
+  string debit_account = 2;
+  string credit_account = 3;
+  string amount = 4;  // BigDecimal as string for precision
+  string currency = 5;
+  string payment_details = 6;
+  string channel = 7;
+  string value_date = 8;
+  string processing_priority = 9;
+  string charge_code = 10;
+}
+
+message TellerRequest {
+  string idempotency_key = 1;
+  string account_number = 2;
+  string amount = 3;
+  string currency = 4;
+  string transaction_code = 5;
+  string teller_id = 6;
+  string branch_code = 7;
+  string narration = 8;
+}
+
+message MultiCommitRequest {
+  string idempotency_key = 1;
+  string batch_id = 2;
+  repeated FundTransferRequest transactions = 3;
+  string commit_mode = 4;  // ALL_OR_NOTHING, BEST_EFFORT
+}
+
+message TransactionResponse {
+  string transaction_id = 1;
+  string status = 2;
+  string t24_reference = 3;
+  google.protobuf.Timestamp posted_at = 4;
+  string debit_account = 5;
+  string credit_account = 6;
+  string amount = 7;
+  string currency = 8;
+}
+
+message StatusRequest {
+  string t24_reference = 1;
+}
+
+message StatusResponse {
+  string t24_reference = 1;
+  string status = 2;
+  google.protobuf.Timestamp last_updated = 3;
+}

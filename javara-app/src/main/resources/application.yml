@@ -36,5 +36,32 @@ javara:
       time-limiter:
         ofs: 30s
         tafj: 60s
+    multi-tenancy:
+      enabled: false
+      default-tenant: "default"
+      tenants:
+        - id: "default"
+          t24-company: "ID0010001"
+          ofs-endpoint: "http://localhost:9443"
+          description: "Default tenant"
+    rate-limit:
+      enabled: false
+      channels:
+        INTERNET_BANKING:
+          fund-transfer: 100
+          customer-inquiry: 500
+          teller-transaction: 50
+          payment-order: 50
+        BATCH:
+          fund-transfer: -1
+          customer-inquiry: -1
+          teller-transaction: -1
+          payment-order: -1
+        TELLER:
+          fund-transfer: 50
+          customer-inquiry: 200
+          teller-transaction: 50
+          payment-order: 20
   security:
     auth-mode: apikey
+    jwk-set-uri: ""
