@@ -3,12 +3,37 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>id.co.javara</groupId>
         <artifactId>javara</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>javara-starter</artifactId>
-    <packaging>jar</packaging>
-    <name>JAVARA Starter</name>
+
+    <name>JAVARA Spring Boot Starter</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>id.co.javara</groupId>
+            <artifactId>javara-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>id.co.javara</groupId>
+            <artifactId>javara-ofs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>id.co.javara</groupId>
+            <artifactId>javara-app</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>id.co.javara</groupId>
+            <artifactId>javara-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+    </dependencies>
 </project>
