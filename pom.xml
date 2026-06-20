@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>id.co.javara</groupId>
+    <groupId>com.faisalaffan</groupId>
     <artifactId>javara</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
@@ -70,42 +70,42 @@
         <dependencies>
             <!-- Internal modules -->
             <dependency>
-                <groupId>id.co.javara</groupId>
+                <groupId>com.faisalaffan</groupId>
                 <artifactId>javara-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>id.co.javara</groupId>
+                <groupId>com.faisalaffan</groupId>
                 <artifactId>javara-ofs</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>id.co.javara</groupId>
+                <groupId>com.faisalaffan</groupId>
                 <artifactId>javara-tafj</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>id.co.javara</groupId>
+                <groupId>com.faisalaffan</groupId>
                 <artifactId>javara-iris</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>id.co.javara</groupId>
+                <groupId>com.faisalaffan</groupId>
                 <artifactId>javara-jms</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>id.co.javara</groupId>
+                <groupId>com.faisalaffan</groupId>
                 <artifactId>javara-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>id.co.javara</groupId>
+                <groupId>com.faisalaffan</groupId>
                 <artifactId>javara-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>id.co.javara</groupId>
+                <groupId>com.faisalaffan</groupId>
                 <artifactId>javara-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>

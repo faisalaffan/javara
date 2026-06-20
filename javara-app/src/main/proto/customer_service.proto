@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package id.co.javara;
+package com.faisalaffan.javara;
 
-option java_package = "id.co.javara.app.grpc";
+option java_package = "com.faisalaffan.javara.app.grpc";
 option java_multiple_files = true;
 
 service CustomerService {

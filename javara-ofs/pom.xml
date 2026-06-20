@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>id.co.javara</groupId>
+        <groupId>com.faisalaffan</groupId>
         <artifactId>javara</artifactId>
         <version>1.0.0</version>
     </parent>
@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>id.co.javara</groupId>
+            <groupId>com.faisalaffan</groupId>
             <artifactId>javara-core</artifactId>
         </dependency>
 
